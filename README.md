@@ -9,3 +9,20 @@ conda create --name sdeenv tensorflow=2.4.1 Keras=2.4.3 numpy=1.20 scipy=1.6.0 s
 ```
 
 **Full code for training and testing model will be made available after peer-review.**
+
+## BibTeX Citation
+
+If you use our model in a scientific publication, we would appreciate using the following citation for our dataset (paper citation will be added later):
+
+```
+@misc{filteredDNSWilliams2022,
+        title={Filtered direct numerical simulation dataset},
+        url={https://www.kaggle.com/dsv/3998403},
+        DOI={10.34740/KAGGLE/DSV/3998403},
+        publisher={Kaggle},
+        author={Josh Williams and Uwe Wolfram and Ali Ozel},
+        year={2022}
+}
+```
+
+
