@@ -1,0 +1,82 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  6
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      binary;
+    class       polyBoundaryMesh;
+    location    "constant/polyMesh";
+    object      boundary;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+6
+(
+    patch0_half0
+    {
+        type            cyclic;
+        inGroups        1(cyclic);
+        nFaces          784;
+        startFace       63504;
+        matchTolerance  0.0001;
+        transform       unknown;
+        neighbourPatch  patch0_half1;
+    }
+    patch0_half1
+    {
+        type            cyclic;
+        inGroups        1(cyclic);
+        nFaces          784;
+        startFace       64288;
+        matchTolerance  0.0001;
+        transform       unknown;
+        neighbourPatch  patch0_half0;
+    }
+    patch1_half0
+    {
+        type            cyclic;
+        inGroups        1(cyclic);
+        nFaces          784;
+        startFace       65072;
+        matchTolerance  0.0001;
+        transform       unknown;
+        neighbourPatch  patch1_half1;
+    }
+    patch1_half1
+    {
+        type            cyclic;
+        inGroups        1(cyclic);
+        nFaces          784;
+        startFace       65856;
+        matchTolerance  0.0001;
+        transform       unknown;
+        neighbourPatch  patch1_half0;
+    }
+    patch2_half0
+    {
+        type            cyclic;
+        inGroups        1(cyclic);
+        nFaces          784;
+        startFace       66640;
+        matchTolerance  0.0001;
+        transform       unknown;
+        neighbourPatch  patch2_half1;
+    }
+    patch2_half1
+    {
+        type            cyclic;
+        inGroups        1(cyclic);
+        nFaces          784;
+        startFace       67424;
+        matchTolerance  0.0001;
+        transform       unknown;
+        neighbourPatch  patch2_half0;
+    }
+)
+
+// ************************************************************************* //

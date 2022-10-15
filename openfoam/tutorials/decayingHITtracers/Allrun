@@ -1,0 +1,8 @@
+#!/bin/bash
+
+foamListTimes -rm -noZero
+rm -rf processor*
+
+decomposePar -force
+./run.sh
+

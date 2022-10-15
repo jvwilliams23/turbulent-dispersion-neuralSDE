@@ -1,0 +1,6 @@
+#!/bin/bash
+
+foamListTimes -noZero -rm
+rm -rf processor*
+rm -rf graphs*
+rm *.eps log*

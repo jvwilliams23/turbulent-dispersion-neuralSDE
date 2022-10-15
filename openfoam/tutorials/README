@@ -1,0 +1,3 @@
+Tutorial case performs decaying homogeneous isotropic turbulence in cubic domain.
+Mesh has 28 cells in each axis.
+Particles are tracers (very low inertia). 1000 particles are used with neuralSDE for turbulent dispersion.
