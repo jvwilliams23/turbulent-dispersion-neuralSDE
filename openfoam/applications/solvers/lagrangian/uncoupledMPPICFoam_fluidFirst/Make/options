@@ -1,0 +1,39 @@
+EXE_INC = \
+    -I../../../../src/lagrangian/intermediate/lnInclude \
+    -I../../../../src/lagrangian/turbulence/lnInclude \
+    -I./MPPICTurbulenceModels/lnInclude \
+    -I$(LIB_SRC)/lagrangian/basic/lnInclude \
+    -I$(LIB_SRC)/lagrangian/intermediate/lnInclude \
+    -I$(LIB_SRC)/thermophysicalModels/specie/lnInclude \
+    -I$(LIB_SRC)/transportModels/compressible/lnInclude \
+    -I$(LIB_SRC)/thermophysicalModels/basic/lnInclude \
+    -I$(LIB_SRC)/thermophysicalModels/reactionThermo/lnInclude \
+    -I$(LIB_SRC)/thermophysicalModels/radiation/lnInclude \
+    -I$(LIB_SRC)/transportModels \
+    -I$(LIB_SRC)/transportModels/incompressible/singlePhaseTransportModel \
+    -I$(LIB_SRC)/TurbulenceModels/turbulenceModels/lnInclude \
+    -I$(LIB_SRC)/TurbulenceModels/incompressible/lnInclude \
+    -I$(LIB_SRC)/TurbulenceModels/phaseIncompressible/lnInclude \
+    -I$(LIB_SRC)/regionModels/regionModel/lnInclude \
+    -I$(LIB_SRC)/regionModels/surfaceFilmModels/lnInclude \
+    -I$(LIB_SRC)/finiteVolume/lnInclude \
+    -I$(LIB_SRC)/meshTools/lnInclude 
+
+EXE_LIBS = \
+    -L$(FOAM_USER_LIBBIN) -llagrangianHW \
+    -L$(FOAM_USER_LIBBIN) -llagrangianTurbulenceHW \
+    -llagrangian \
+    -llagrangianIntermediate \
+    -llagrangianTurbulence \
+    -lspecie \
+    -lradiationModels \
+    -lincompressibleTransportModels \
+    -lturbulenceModels \
+    -lincompressibleTurbulenceModels \
+    -lMPPICTurbulenceModels \
+    -lregionModels \
+    -lsurfaceFilmModels \
+    -lsampling \
+    -lfiniteVolume \
+    -lfvOptions \
+    -lmeshTools

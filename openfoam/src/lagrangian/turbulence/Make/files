@@ -1,0 +1,14 @@
+PARCELS=parcels
+DERIVEDPARCELS=$(PARCELS)/derived
+
+KINEMATICPARCEL=$(DERIVEDPARCELS)/basicKinematicHWParcel
+$(KINEMATICPARCEL)/makeBasicKinematicHWParcelSubmodels.C
+
+KINEMATICMPPICPARCEL=$(DERIVEDPARCELS)/basicKinematicMPPICHWParcel
+$(KINEMATICMPPICPARCEL)/makeBasicKinematicMPPICHWParcelSubmodels.C
+
+submodels/Kinematic/DispersionModel/neuralSDE/keras_model.C
+
+LIB = $(FOAM_USER_LIBBIN)/liblagrangianTurbulenceHW
+
+

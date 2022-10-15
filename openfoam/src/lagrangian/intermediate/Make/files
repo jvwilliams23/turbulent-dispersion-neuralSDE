@@ -1,0 +1,26 @@
+PARCELS=parcels
+BASEPARCELS=$(PARCELS)/baseClasses
+DERIVEDPARCELS=$(PARCELS)/derived
+
+CLOUDS=clouds
+BASECLOUDS=$(CLOUDS)/baseClasses
+DERIVEDCLOUDS=$(CLOUDS)/derived
+
+/* JW */
+
+$(BASECLOUDS)/kinematicHWCloud/kinematicHWCloud.C
+
+KINEMATICPARCEL=$(DERIVEDPARCELS)/basicKinematicHWParcel
+$(KINEMATICPARCEL)/defineBasicKinematicHWParcel.C
+$(KINEMATICPARCEL)/makeBasicKinematicHWParcelSubmodels.C
+/* JW */
+
+
+/* JK */
+/* hw parcel sub-models */
+KINEMATICMPPICELECTRICPARCEL=$(DERIVEDPARCELS)/basicKinematicMPPICHWParcel
+$(KINEMATICMPPICELECTRICPARCEL)/defineBasicKinematicMPPICHWParcel.C
+$(KINEMATICMPPICELECTRICPARCEL)/makeBasicKinematicMPPICHWParcelSubmodels.C
+/* JK */
+
+LIB = $(FOAM_USER_LIBBIN)/liblagrangianHW
