@@ -1,0 +1,16 @@
+#!/bin/bash
+
+basedir=$(pwd)
+
+# compile libraries
+cd src/lagrangian/
+./Allwclean
+./Allwmake
+
+# compile solver
+cd ${basedir}
+cd applications/solvers/lagrangian/uncoupledMPPICFoam_fluidFirst/
+./Allwclean
+./Allwmake
+
+
