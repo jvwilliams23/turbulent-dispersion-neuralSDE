@@ -447,7 +447,6 @@ class SDEIntegrator:
     up_time_start,
     pairs=False,
     tau_p_all=None,
-    diffusion_off=False,
     debug=False,
     no_model=False,
     return_nn_output=False,
@@ -515,7 +514,7 @@ class SDEIntegrator:
       gauss_vec1 = np.random.normal(size=(number_of_particles, 3))
       gauss_vec2 = np.random.normal(size=(number_of_particles, 3))
       gauss_vec3 = np.random.normal(size=(number_of_particles, 3))
-      if diffusion_off or no_model:
+      if no_model:
         gauss_vec1 *= 0.0
         gauss_vec2 *= 0.0
         gauss_vec3 *= 0.0

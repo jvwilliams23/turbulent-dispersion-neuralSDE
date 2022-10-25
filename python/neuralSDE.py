@@ -6,6 +6,7 @@ of fluid seen by particles.
 import argparse
 import hjson
 import os
+from glob import glob
 from distutils.util import strtobool
 from copy import copy
 from datetime import datetime
@@ -46,7 +47,6 @@ parser.add_argument(
   "--retrain",
   default=False,
   action="store_true",
-  # type=strtobool,
   help="Retrain model. If false, uses previously saved weights",
 )
 parser.add_argument(
@@ -77,6 +77,13 @@ parser.add_argument(
   help="Save model weights and architecture for openfoam simulations",
 )
 parser.add_argument(
+  "-dd",
+  "--data_dir",
+  default="./",
+  type=str,
+  help="Directory to read data from",
+)
+parser.add_argument(
   "-wd",
   "--weight_dir",
   default="weights",
@@ -102,23 +109,14 @@ parser.add_argument(
   "-tf",
   "--test_filt",
   default="7x",
-  choices=["DNS", "3x", "5x", "7x", "9x", "11x", "48"],
-  type=str,
-  help="Test case to run",
-)
-parser.add_argument(
-  "-tcs",
-  "-st",
-  "--test_case_stokes",
-  default="0",
-  choices=["0", "0.1", "0.5", "1", "1.0", "1.25", "5", "5.0"],
+  choices=["3x", "5x", "7x", "9x"],
   type=str,
   help="Test case to run",
 )
 parser.add_argument(
   "-np",
   "--num_p",
-  default=100,
+  default=10000,
   type=int,
   help=("Number of particles to train with in each case. "),
 )
@@ -140,25 +138,11 @@ parser.add_argument(
   help="Learning rate for training. If none given, reads from config file",
 )
 parser.add_argument(
-  "-doff",
-  "--diffusion_off",
-  default=False,
-  action="store_true",
-  help="Set diffusion term off when True",
-)
-parser.add_argument(
   "-p",
   "--plots",
   default="True",
   type=strtobool,
   help="Save plots",
-)
-parser.add_argument(
-  "-dp",
-  "--debug_plots",
-  default=False,
-  action="store_true",
-  help="Save input plots",
 )
 parser.add_argument(
   "-ext",
@@ -201,10 +185,11 @@ random_state = 84
 tf.random.set_seed(random_state)
 
 # assumes that data from "http://doi.org/10.34740/KAGGLE/DSV/3998403" 
-# is downloaded to "dataset-filteredDNS"
-data_dir_base = "dataset-filteredDNS/"
-assert os.path.isdir(data_dir_base), f"is kaggle dataset downloaded to {data_dir_base}?"
-
+# is downloaded to args.data_dir
+data_dir_base = args.data_dir
+assert len(glob(f"{data_dir_base}/filteredDNS*csv")), (
+  f"is kaggle dataset downloaded to {args.data_dir}?"
+)
 
 assert (
   args.test_dict_key in config["simulations"].keys()
@@ -277,11 +262,6 @@ os.makedirs(LOG_DIR, exist_ok=True)
 # make directory for figures if not existing
 if not os.path.isdir(FIG_DIR):
   os.mkdir(FIG_DIR)
-
-if args.diffusion_off:
-  DIFFUSION_TERM_STR = "diffusionOff"
-else:
-  DIFFUSION_TERM_STR = "diffusionOn"
 
 test_filt_int = int(args.test_filt[:-1])
 
@@ -856,7 +836,6 @@ us_network, drift_time_list, diffusion_list = test_func(
   up_time_start=up_time_start,
   tau_p_all=tau_p,
   pairs=args.test_pairs,
-  diffusion_off=args.diffusion_off,
   debug=True,
   return_nn_output=True,
 )
@@ -873,7 +852,6 @@ us_up_no_model = test_func(
   up_time_start=up_time_start,
   tau_p_all=tau_p,
   pairs=args.test_pairs,
-  diffusion_off=args.diffusion_off,
   debug=False,
   return_nn_output=False,
   no_model=True,
@@ -902,16 +880,14 @@ plot_string_list = ["useen", "uparticle"]
 plot_time_dict = dict.fromkeys(plot_string_list)
 tke_dict = dict.fromkeys(plot_string_list)
 tke_dict_gt = dict.fromkeys(plot_string_list)
-tke_uc = np.sum(x_data[:, :, uc_inds] ** 2.0, axis=-1)
-tke_up_no_us_model = np.sum(up_no_us_model**2, axis=-1)
-# dns_data = np.loadtxt("meanFluidVelocityEnergyDNS.txt")
-normaliser = 1.0  # dns_data[0, 1]
+tke_uc = 0.5*np.sum(x_data[:, :, uc_inds] ** 2.0, axis=-1)
+tke_up_no_us_model = 0.5*np.sum(up_no_us_model**2, axis=-1)
+normaliser = 1.0
 for vel_test, vel_network, plot_str in zip(
   test_vel_list, network_vel_list, plot_string_list
 ):
-  initial_tke = np.sum(vel_test[:, 0] ** 2, axis=-1)
-  tke_test = np.sum(vel_test**2.0, axis=2)
-  # normaliser = initial_tke.mean()
+  initial_tke = 0.5*np.sum(vel_test[:, 0] ** 2, axis=-1)
+  tke_test = 0.5*np.sum(vel_test**2.0, axis=2)
   normaliser = initial_tke.mean()
   tke_test /= normaliser
   if plot_str == "useen":
@@ -919,7 +895,7 @@ for vel_test, vel_network, plot_str in zip(
   elif plot_str == "uparticle":
     tke_up_no_us_model /= normaliser
 
-  tke_network = np.sum(vel_network**2.0, axis=2)
+  tke_network = 0.5*np.sum(vel_network**2.0, axis=2)
   tke_network /= normaliser
   plot_times_nn = times_arr_base[:, 0]
   # save tke and times to dict for comparing two
@@ -992,7 +968,7 @@ if args.plots:
     pairs_string = "nonPairs"
   plot_filename = (
     f"{FIG_DIR}/{pairs_string}TkeUsDecayWithUc{args.test_dict_key}_"
-    f"{STOKES_TEST}_{args.test_filt}_{DIFFUSION_TERM_STR}.{args.extension}"
+    f"{STOKES_TEST}_{args.test_filt}.{args.extension}"
   )
 
   utils.plot_tke_mean_decay_with_uc(
