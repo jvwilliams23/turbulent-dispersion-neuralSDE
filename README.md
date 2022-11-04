@@ -2,6 +2,8 @@
 
 Train a neural network to learn drift and diffusion components of stochastic differential equations (SDEs), using OpenFOAM data. We use this for modelling turbulent dispersion.
 
+J. Williams, U. Wolfram, and A. Ozel, Neural stochastic differential equations for particle dispersion in large-eddy simulations of homogeneous isotropic turbulence, Physics of Fluids 34, 113315 (2022); https://doi.org/10.1063/5.0121344, link: https://aip.scitation.org/doi/10.1063/5.0121344
+  
 ## Installation
 ### Installation - OpenFOAM
 A make file is provided in openfoam/AllMake. This compiles the modified "lagrangian" libraries (namely, "intermediate" and "turbulence" libraries).
