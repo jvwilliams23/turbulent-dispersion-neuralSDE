@@ -23,25 +23,24 @@ Also, the python script assumes that the dataset from [our Kaggle repository](ht
 If you use our model in a scientific publication, we would appreciate using the following citation for our preprint (paper citation will be added later), and dataset:
 
 ```
-@article{williams2022neuralSDEarxiv,
+@article{williams2022neuralSDE,
   title = {Neural stochastic differential equations for particle dispersion in large-eddy simulations of homogeneous isotropic turbulence},
   author = {Williams, Josh and Wolfram, Uwe and Ozel, Ali},
-  doi = {10.48550/ARXIV.2208.08156},
-  url = {https://arxiv.org/abs/2208.08156},
-  keywords = {Fluid Dynamics (physics.flu-dyn), FOS: Physical sciences, FOS: Physical sciences},
-  publisher = {arXiv},
-  journal = {arXiv preprint arXiv:2208.08156},
+  journal = {Physics of Fluids},
+  volume = {34},
+  number = {11},
+  pages = {113315},
   year = {2022},
-  copyright = {Creative Commons Attribution Share Alike 4.0 International}
+  doi = {10.1063/5.0121344},
 }
 
 @misc{williams2022filteredDNSkaggle,
-        title={Filtered direct numerical simulation dataset},
-        url={https://www.kaggle.com/dsv/3998403},
-        DOI={10.34740/KAGGLE/DSV/3998403},
-        publisher={Kaggle},
-        author={Josh Williams and Uwe Wolfram and Ali Ozel},
-        year={2022}
+  title={Filtered direct numerical simulation dataset},
+  url={https://www.kaggle.com/dsv/3998403},
+  DOI={10.34740/KAGGLE/DSV/3998403},
+  publisher={Kaggle},
+  author={Josh Williams and Uwe Wolfram and Ali Ozel},
+  year={2022}
 }
 ```
 
