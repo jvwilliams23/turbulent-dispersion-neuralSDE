@@ -46,6 +46,18 @@ If you use our model in a scientific publication, we would appreciate using the 
   author={Josh Williams and Uwe Wolfram and Ali Ozel},
   year={2022}
 }
+
+@software{williams2022turbDispersionGithub,
+  author       = {Josh Williams and Uwe Wolfram and Ali Ozel},
+  title        = {{jvwilliams23/turbulent-dispersion-neuralSDE: 
+                   v0.1.2}},
+  month        = nov,
+  year         = 2022,
+  publisher    = {Zenodo},
+  version      = {v0.1.2},
+  doi          = {10.5281/zenodo.7323946},
+  url          = {https://doi.org/10.5281/zenodo.7323946}
+}
 ```
 
 
