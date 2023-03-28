@@ -1,0 +1,78 @@
+{
+  "network":
+  {
+    "NUM_LAYERS" : 5,
+    "NUM_NODES_PER_LAYER" : 128,
+    "HIDDEN_LAYER_ACTIVATION_DRIFT" : "relu",
+    "HIDDEN_LAYER_ACTIVATION_DIFFUSION" : "tanh",
+    "OUTPUT_LAYER_ACTIVATION_DRIFT" : "softplus",
+    "OUTPUT_LAYER_ACTIVATION_DIFFUSION" : "softplus",
+    "train":
+    {
+      "train_pairs" : false,
+      "OPTIMIZER" : "SGD", // options are "Adam" or "SGD"
+      "BATCH_SIZE": 1000,//1000,
+      "learning_rate" : 1.0e-4,
+      "VALIDATION_SPLIT" : 0.5,
+      "HIDDEN_LAYER_WEIGHTS_INIT_DICT":
+      {
+        "init_name" : "HeNormal",
+      },
+      "OUTPUT_LAYER_WEIGHTS_G_INIT_DICT":
+      {
+        "init_name" : "HeUniform",
+      },
+      "OUTPUT_LAYER_WEIGHTS_B_INIT_DICT":
+      {
+        "init_name" : "HeUniform",
+      },
+      "reg_hidden_layer_drift_bias":
+      {
+        "l1_reg" : 0.000,
+        "l2_reg" : 0.000,
+      },
+      "reg_hidden_layer_diffusion_bias":
+      {
+        "l1_reg" : 0.000,
+        "l2_reg" : 0.000,
+      },
+      "EULER-MARUYAMA_LOSS" : "Useen", // options are "Useen", "Uparticle", "both"
+    },
+  },
+  "normalisation":
+  {
+    "TIMESCALE_NORMALISATION" : 26.0,
+    "MESH_SIZE_NORMALISATION" : 150.0,
+    "DRIFT_MULTIPLIER" : 1.0,
+    "DIFFUSION_MULTIPLIER" : 1000.0,
+    "DRIFT_NORM_TIMESCALE_INDEX" : 1.0,
+    "DIFFUSION_NORM_TIMESCALE_INDEX" : 1.0,
+  },
+  "plotting":
+  {
+    "NORMALISE_X_AXIS_IN_FIGURE" : true,
+  },
+  "EXTRA_DRIFT_TERMS_ON" : false,
+  "simulations":
+  {
+    "Re33FinerWriteInterval":
+    {
+      "train" : true,
+      "data_file" : "filteredDNS-Re33FinerWriteIntervalNp20k-filterwidth{filter_width}x.csv",
+      "num_p" : 2000,
+      "COARSEN_TEST_TIME_RESOLUTION" : 1,
+      "CUTOFF_TRAIN_TIME": 20000,
+      "viscosity" : 1.57e-5,
+      "FILTER_TRAIN" : ["5", "7", "9"],
+      "domain_dimensions" : [6.28, 6.28, 6.28],
+      "mesh_spacing" : [256, 256, 256],
+      "TAU_L_LARGESCALE_256" : 25.124836835713044,
+      "plotting":
+      {
+        "log_x" : false,
+        "log_y" : false,
+      },
+      "reynolds_num" : 33,
+    },
+  }
+}
