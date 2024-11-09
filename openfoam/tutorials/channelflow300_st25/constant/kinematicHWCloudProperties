@@ -57,7 +57,7 @@ subModels
 {
     particleForces
     {
-        StokesDrag //BeetstraDrag //UsDrag ///WenYuDrag
+        sphereDrag // should be equal to Schiller-Naumann? Need to check
         {
             alphac alpha.air;
         }
