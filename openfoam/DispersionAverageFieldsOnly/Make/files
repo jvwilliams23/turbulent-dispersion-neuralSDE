@@ -1,0 +1,3 @@
+makeParcelTurbulenceDispersionModels.C
+
+LIB = $(FOAM_USER_LIBBIN)/libDispersionAverageFieldsOnly

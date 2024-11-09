@@ -1,0 +1,104 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  6
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      controlDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+application     MPPICFoam;
+
+startFrom       startTime;
+
+startTime       0;
+
+stopAt          endTime;
+
+endTime         4.2e-5; //0.252; //1000;
+
+deltaT          4.2e-5;
+
+writeControl    runTime;
+
+writeInterval   4.2e-5;
+
+purgeWrite      0;
+
+writeFormat     ascii;
+
+writePrecision  18;
+
+writeCompression off;
+
+timeFormat      general;
+
+timePrecision   6;
+
+runTimeModifiable true;
+
+libs ( 	
+    //"libdevUfSeenByParticlesLESmodel1.so" //"libUfSeenByParticlesLESmodel2.so" 
+    "liblagrangianHW.so"
+    "liblagrangianTurbulenceHW.so"
+	"libUsDragForce.so"
+	"libdynamicSmagorinskyModel.so" );
+
+functions
+{
+
+   fieldAverage1
+    {
+        type            fieldAverage;
+        libs            ("libfieldFunctionObjects.so");
+        writeControl    writeTime;
+
+        fields
+        (
+            U.air
+            {
+                mean        on;
+                prime2Mean  on;
+                base        time;
+            }
+	    alpha.air
+            {
+                mean        on;
+                prime2Mean  off;
+                base        time;
+            }
+            p
+            {
+                mean        on;
+                prime2Mean  on;
+                base        time;
+            }
+	    Ufp
+            {
+                mean        on;
+                prime2Mean  on;
+                base        time;
+            }
+	    UpTilde
+            {
+                mean        on;
+                prime2Mean  on;
+                base        time;
+            }
+        );
+	
+        log             true;
+        timeStart       0.05;
+    }
+
+}
+
+// ************************************************************************* //
