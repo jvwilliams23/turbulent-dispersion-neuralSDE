@@ -31,7 +31,7 @@ License
 #include "LocalInteraction.H"
 //#include "LocalInteractionHW.H"
 #include "NoInteraction.H"
-#include "ReboundHW.H"
+// #include "ReboundHW.H" 
 #include "Rebound.H"
 #include "StandardWallInteraction.H"
 
@@ -43,7 +43,6 @@ License
                                                                                \
     makePatchInteractionModelType(LocalInteraction, CloudType);                \
     makePatchInteractionModelType(NoInteraction, CloudType);                   \
-    makePatchInteractionModelType(ReboundHW, CloudType);                       \
     makePatchInteractionModelType(Rebound, CloudType);                       \
     makePatchInteractionModelType(StandardWallInteraction, CloudType);
 
